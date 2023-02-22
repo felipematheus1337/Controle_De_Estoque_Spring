@@ -1,5 +1,7 @@
 package com.controleestoque.domain.entity;
 
+import com.controleestoque.domain.entity.enums.TipoMovimentacao;
+import com.controleestoque.exception.BusinessException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -42,9 +44,16 @@ public class Produto {
 
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
-        if(getSaldoInicial() != null) {
 
+        if (this.getSaldoInicial() != null) {
+         throw new BusinessException("Não é possível alterar o saldo inicial!");
+        } else if (saldoInicial.compareTo(new BigDecimal(getQuantidadeMinima())) < 0) {
+            throw new BusinessException("Saldo inicial não pode ser inferior à quantidade mínima.");
+        } else if (saldoInicial.compareTo(BigDecimal.ZERO) > 0) {
+            Movimentacao movimentacao = new Movimentacao();
+            movimentacao.setTipo(TipoMovimentacao.SALDO_INICIAL);
+            movimentacoes.add(movimentacao);
+            this.saldoInicial = saldoInicial;
         }
-        this.saldoInicial = saldoInicial;
     }
 }
