@@ -25,7 +25,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public ProdutoDTO edit(ProdutoDTO dto) {
+    public ProdutoDTO edit(Long id,ProdutoDTO dto) {
         return null;
     }
 

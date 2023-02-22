@@ -14,15 +14,15 @@ import java.util.stream.Collectors;
 public class MovimentacaoMapper {
     private final ModelMapper mapper;
 
-    Movimentacao toEntity(MovimentacaoDTO dto) {
+    public Movimentacao toEntity(MovimentacaoDTO dto) {
         return mapper.map(dto, Movimentacao.class);
     }
 
-    MovimentacaoDTO toDTO(Movimentacao movimentacao) {
+    public MovimentacaoDTO toDTO(Movimentacao movimentacao) {
         return mapper.map(movimentacao, MovimentacaoDTO.class);
     }
 
-    List<MovimentacaoDTO> toListOfDTO(List<Movimentacao> movimentacaoList) {
+    public List<MovimentacaoDTO> toListOfDTO(List<Movimentacao> movimentacaoList) {
         return movimentacaoList
                 .stream()
                 .map(this::toDTO)

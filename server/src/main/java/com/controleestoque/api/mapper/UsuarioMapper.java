@@ -15,15 +15,15 @@ public class UsuarioMapper {
 
     private final ModelMapper mapper;
 
-    Usuario toEntity(UsuarioDTO dto) {
+    public Usuario toEntity(UsuarioDTO dto) {
         return mapper.map(dto, Usuario.class);
     }
 
-    UsuarioDTO toDTO(Usuario usuario) {
+    public UsuarioDTO toDTO(Usuario usuario) {
         return mapper.map(usuario, UsuarioDTO.class);
     }
 
-    List<UsuarioDTO> toDTOList(List<Usuario> usuarioList) {
+    public List<UsuarioDTO> toDTOList(List<Usuario> usuarioList) {
         return usuarioList.stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());

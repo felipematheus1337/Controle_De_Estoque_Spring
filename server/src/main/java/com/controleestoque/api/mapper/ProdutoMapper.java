@@ -17,15 +17,15 @@ public class ProdutoMapper {
 
     private final ModelMapper mapper;
 
-    Produto toEntity(ProdutoDTO dto) {
+    public Produto toEntity(ProdutoDTO dto) {
         return mapper.map(dto, Produto.class);
     }
 
-    ProdutoDTO toDTO(Produto produto) {
+    public ProdutoDTO toDTO(Produto produto) {
         return mapper.map(produto, ProdutoDTO.class);
     }
 
-    List<ProdutoDTO> toDTOList(List<Produto> produtoList) {
+    public List<ProdutoDTO> toDTOList(List<Produto> produtoList) {
         return produtoList
                 .stream()
                 .map(this::toDTO)

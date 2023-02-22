@@ -12,7 +12,7 @@ public interface MovimentacaoService {
 
     List<MovimentacaoDTO> findAll();
 
-    MovimentacaoDTO edit(MovimentacaoDTO dto);
+    MovimentacaoDTO edit(Long id,MovimentacaoDTO dto);
 
     void delete(Long id);
 }

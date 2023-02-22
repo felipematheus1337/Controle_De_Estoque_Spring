@@ -25,7 +25,7 @@ public class MovimentacaoServiceImpl  implements MovimentacaoService {
     }
 
     @Override
-    public MovimentacaoDTO edit(MovimentacaoDTO dto) {
+    public MovimentacaoDTO edit(Long id,MovimentacaoDTO dto) {
         return null;
     }
 

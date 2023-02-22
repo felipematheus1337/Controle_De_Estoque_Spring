@@ -14,7 +14,7 @@ public interface ProdutoService {
 
     List<ProdutoDTO> findAll();
 
-    ProdutoDTO edit(ProdutoDTO dto);
+    ProdutoDTO edit(Long id,ProdutoDTO dto);
 
     void delete(Long id);
 }

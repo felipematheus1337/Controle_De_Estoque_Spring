@@ -13,7 +13,7 @@ public interface UsuarioService {
 
     List<UsuarioDTO> findAll();
 
-    UsuarioDTO edit(UsuarioDTO dto);
+    UsuarioDTO edit(Long id,UsuarioDTO dto);
 
     void delete(Long id);
 
