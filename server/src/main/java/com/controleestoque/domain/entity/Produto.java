@@ -41,5 +41,10 @@ public class Produto {
     private List<Movimentacao> movimentacoes;
 
 
+    public void setSaldoInicial(BigDecimal saldoInicial) {
+        if(getSaldoInicial() != null) {
 
+        }
+        this.saldoInicial = saldoInicial;
+    }
 }
