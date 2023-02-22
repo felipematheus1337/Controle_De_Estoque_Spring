@@ -1,31 +1,31 @@
 package com.controleestoque.domain.service.impl;
 
-import com.controleestoque.api.dto.UsuarioDTO;
-import com.controleestoque.domain.service.UsuarioService;
+import com.controleestoque.api.dto.ProdutoDTO;
+import com.controleestoque.domain.service.ProdutoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UsuarioServiceImpl  implements UsuarioService {
+public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
-    public UsuarioDTO create(UsuarioDTO usuarioDTO) {
+    public ProdutoDTO create(ProdutoDTO ProdutoDTO) {
         return null;
     }
 
     @Override
-    public UsuarioDTO getById(Long id) {
+    public ProdutoDTO getById(Long id) {
         return null;
     }
 
     @Override
-    public List<UsuarioDTO> findAll() {
+    public List<ProdutoDTO> findAll() {
         return null;
     }
 
     @Override
-    public UsuarioDTO edit(UsuarioDTO dto) {
+    public ProdutoDTO edit(ProdutoDTO dto) {
         return null;
     }
 
