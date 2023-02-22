@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Produto {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +42,13 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal saldoInicial;
 
+    private LocalDateTime dataCriacao;
+
     @OneToMany(mappedBy = "produto")
     private List<Movimentacao> movimentacoes;
 
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
-
         if (this.getSaldoInicial() != null) {
          throw new BusinessException("Não é possível alterar o saldo inicial!");
         } else if (saldoInicial.compareTo(new BigDecimal(getQuantidadeMinima())) < 0) {
@@ -56,4 +60,30 @@ public class Produto {
             this.saldoInicial = saldoInicial;
         }
     }
+
+    public BigDecimal getSaldo() {
+        BigDecimal totalEntradas = BigDecimal.ZERO;
+        BigDecimal totalSaidas = BigDecimal.ZERO;
+        for (Movimentacao movimentacao : movimentacoes) {
+            if (movimentacao.getTipo() == TipoMovimentacao.ENTRADA) {
+                totalEntradas = totalEntradas.add(movimentacao.getQuantidade());
+            } else if (movimentacao.getTipo() == TipoMovimentacao.SAÍDA) {
+                totalSaidas = totalSaidas.add(movimentacao.getQuantidade());
+            }
+        }
+        return saldoInicial.add(totalEntradas).subtract(totalSaidas);
+    }
+
+
+   /* public void addMovimentacao(Movimentacao movimentacao) {
+        for(Movimentacao m: movimentacoes) {
+            if(m.getTipo() == TipoMovimentacao.SALDO_INICIAL) {
+                throw new BusinessException("Já existe uma movimentação do tipo SALDO_INICIAL");
+            }
+            movimentacoes.add(movimentacao);
+        }
+    }
+    */
+
+
 }
