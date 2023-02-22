@@ -48,7 +48,7 @@ public class UsuarioServiceImpl  implements UsuarioService {
             throw new BusinessException("User don't exist with that ID!");
         }
         dto.setId(id);
-        return mapper.toDTO(repository.save(userExists.get()));
+        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
     }
 
     @Override

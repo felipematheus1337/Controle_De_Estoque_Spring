@@ -46,7 +46,7 @@ public class MovimentacaoServiceImpl  implements MovimentacaoService {
             throw new BusinessException("moviment don't exist with that ID!");
         }
         dto.setId(id);
-        return mapper.toDTO(repository.save(movimentExists.get()));
+        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
     }
 
     @Override

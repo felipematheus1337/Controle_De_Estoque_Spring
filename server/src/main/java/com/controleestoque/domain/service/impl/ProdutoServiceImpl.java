@@ -46,7 +46,7 @@ public class ProdutoServiceImpl implements ProdutoService {
             throw new BusinessException("product don't exist with that ID!");
         }
         dto.setId(id);
-        return mapper.toDTO(repository.save(productExists.get()));
+        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
     }
 
     @Override
