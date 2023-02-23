@@ -47,7 +47,7 @@
         private String documento;
 
         @ManyToOne
-        @JoinColumn(name = "produto_id", nullable = false)
+        @JoinColumn(name = "produto_id")
         private Produto produto;
 
         public Movimentacao(TipoMovimentacao tipo, BigDecimal quantidade) {
@@ -55,9 +55,8 @@
             this.quantidade = quantidade;
         }
 
-        public Movimentacao(TipoMovimentacao tipo, BigDecimal quantidade, Produto produto) {
+        public Movimentacao(TipoMovimentacao tipo, Produto produto) {
             this.tipo = tipo;
-            this.quantidade = quantidade;
             this.produto = produto;
         }
 
@@ -74,7 +73,6 @@
                 throw new BusinessException("Não é possível realizar movimentações para um produto anterior a sua criação");
             }
             checkIfSaldoInicialValid(tipo);
-            checkIfAjusteValid(tipo);
             checkIfSaidaValid(tipo);
             this.tipo = tipo;
         }
@@ -88,15 +86,8 @@
                     }
                 }
             }
-            this.tipo = tipo;
         }
 
-        private void checkIfAjusteValid(TipoMovimentacao tipo) {
-            if(produto.getMovimentacoes().size() == 0) {
-                throw new BusinessException("Não é possível realizar ajustes sem lançamentos prévios");
-            }
-            this.tipo = tipo;
-        }
 
         private void checkIfSaidaValid(TipoMovimentacao tipo) {
             var movimentacoes = produto.getMovimentacoes();

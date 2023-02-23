@@ -26,7 +26,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public ProdutoDTO create(Produto produto) {
       var produtoSaved = repository.save(produto);
-      movimentacaoRepository.saveAll(produtoSaved.getMovimentacoes());
+      var movimentacao = produto.getMovimentacoes().get(0);
+      movimentacaoRepository.save(movimentacao);
       return mapper.toDTO(produtoSaved);
     }
 

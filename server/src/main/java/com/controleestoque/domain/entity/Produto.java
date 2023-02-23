@@ -26,33 +26,46 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "codigo_barras")
     private String codigoBarras;
+    @Column(name = "nome_produto")
     private String nome;
+    @Column(name = "quantidade_minima")
     private Integer quantidadeMinima;
 
     private BigDecimal preco;
     private BigDecimal saldoInicial;
     private LocalDateTime dataCriacao = LocalDateTime.now();
-    @OneToMany(mappedBy = "produto")
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "produto")
     private List<Movimentacao> movimentacoes = new ArrayList<>();
 
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        if(this.dataCriacao == null && dataCriacao == null) {
+            this.dataCriacao = LocalDateTime.now();
+        }
+        this.dataCriacao = dataCriacao;
+    }
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
-        System.out.println(this.getSaldoInicial());
+        System.out.println(saldoInicial);
         if (this.getSaldoInicial() != null) {
             throw new BusinessException("Não é possível alterar o saldo inicial!");
         } else if (saldoInicial.compareTo(new BigDecimal(getQuantidadeMinima())) < 0) {
             throw new BusinessException("Saldo inicial não pode ser inferior à quantidade mínima.");
-        } else if (saldoInicial.compareTo(BigDecimal.ZERO) > 0) {
-            Movimentacao movimentacao = new Movimentacao(TipoMovimentacao.SALDO_INICIAL, saldoInicial, this);
-            this.saldoInicial = saldoInicial;
+        }
+         else if (saldoInicial.compareTo(BigDecimal.ZERO) > 0) {
+             this.saldoInicial = saldoInicial;
+            Movimentacao movimentacao = new Movimentacao(TipoMovimentacao.SALDO_INICIAL,this);
             movimentacoes.add(movimentacao);
         }
+        this.saldoInicial = saldoInicial;
     }
 
-    public BigDecimal getSaldo() {
+    public BigDecimal getSaldoInicial() {
+
+        if(this.saldoInicial == null) {
+            return null;
+        }
         BigDecimal totalEntradas = BigDecimal.ZERO;
         BigDecimal totalSaidas = BigDecimal.ZERO;
         for (Movimentacao  movimentacao : movimentacoes) {
@@ -62,7 +75,7 @@ public class Produto {
                 totalSaidas = totalSaidas.add(movimentacao.getQuantidade());
             }
         }
-        return saldoInicial.add(totalEntradas).subtract(totalSaidas);
+        return this.saldoInicial.add(totalEntradas).subtract(totalSaidas);
     }
 
 
