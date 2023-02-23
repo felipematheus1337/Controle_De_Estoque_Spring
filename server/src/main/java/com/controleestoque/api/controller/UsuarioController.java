@@ -2,6 +2,7 @@ package com.controleestoque.api.controller;
 
 
 import com.controleestoque.api.dto.UsuarioDTO;
+import com.controleestoque.domain.entity.Usuario;
 import com.controleestoque.domain.service.impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class UsuarioController {
 
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@RequestBody UsuarioDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+    public ResponseEntity<Object> createUser(@RequestBody Usuario usuario) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(usuario));
     }
 
     @GetMapping
@@ -38,8 +39,8 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> edit(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
-        return Stream.of(service.edit(id,dto))
+    public ResponseEntity<UsuarioDTO> edit(@PathVariable Long id, @RequestBody Usuario usuario) {
+        return Stream.of(service.edit(id,usuario))
                 .map(ResponseEntity::ok)
                 .findAny()
                 .orElse(ResponseEntity.notFound().build());

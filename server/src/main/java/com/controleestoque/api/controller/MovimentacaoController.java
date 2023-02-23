@@ -20,8 +20,8 @@ public class MovimentacaoController {
     private final MovimentacaoServiceImpl service;
 
     @PostMapping
-    public ResponseEntity<Object> createMoviment(@RequestBody MovimentacaoDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
+    public ResponseEntity<Object> createMoviment(@RequestBody Movimentacao movimentacao) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(movimentacao));
     }
 
     @GetMapping
@@ -38,8 +38,8 @@ public class MovimentacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovimentacaoDTO> edit(@PathVariable Long id, @RequestBody MovimentacaoDTO dto) {
-        return Stream.of(service.edit(id,dto))
+    public ResponseEntity<MovimentacaoDTO> edit(@PathVariable Long id, @RequestBody Movimentacao movimentacao) {
+        return Stream.of(service.edit(id,movimentacao))
                 .map(ResponseEntity::ok)
                 .findAny()
                 .orElse(ResponseEntity.notFound().build());

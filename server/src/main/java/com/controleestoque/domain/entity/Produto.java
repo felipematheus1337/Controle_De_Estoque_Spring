@@ -1,16 +1,16 @@
 package com.controleestoque.domain.entity;
 
+import com.controleestoque.api.dto.MovimentacaoDTO;
 import com.controleestoque.domain.entity.enums.TipoMovimentacao;
 import com.controleestoque.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +18,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Produto {
 
     private static final long serialVersionUID = 1L;
@@ -26,45 +27,35 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String codigoBarras;
-
-    @NotEmpty
     private String nome;
-
-    @NotEmpty
-    @Column(nullable = false)
     private Integer quantidadeMinima;
 
-    @Column(nullable = false)
     private BigDecimal preco;
-
-    @Column(nullable = false)
     private BigDecimal saldoInicial;
-
-    private LocalDateTime dataCriacao;
-
+    private LocalDateTime dataCriacao = LocalDateTime.now();
     @OneToMany(mappedBy = "produto")
-    private List<Movimentacao> movimentacoes;
+    @JsonIgnore
+    private List<Movimentacao> movimentacoes = new ArrayList<>();
 
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
+        System.out.println(this.getSaldoInicial());
         if (this.getSaldoInicial() != null) {
-         throw new BusinessException("Não é possível alterar o saldo inicial!");
+            throw new BusinessException("Não é possível alterar o saldo inicial!");
         } else if (saldoInicial.compareTo(new BigDecimal(getQuantidadeMinima())) < 0) {
             throw new BusinessException("Saldo inicial não pode ser inferior à quantidade mínima.");
         } else if (saldoInicial.compareTo(BigDecimal.ZERO) > 0) {
-            Movimentacao movimentacao = new Movimentacao();
-            movimentacao.setTipo(TipoMovimentacao.SALDO_INICIAL);
-            movimentacoes.add(movimentacao);
+            Movimentacao movimentacao = new Movimentacao(TipoMovimentacao.SALDO_INICIAL, saldoInicial, this);
             this.saldoInicial = saldoInicial;
+            movimentacoes.add(movimentacao);
         }
     }
 
     public BigDecimal getSaldo() {
         BigDecimal totalEntradas = BigDecimal.ZERO;
         BigDecimal totalSaidas = BigDecimal.ZERO;
-        for (Movimentacao movimentacao : movimentacoes) {
+        for (Movimentacao  movimentacao : movimentacoes) {
             if (movimentacao.getTipo() == TipoMovimentacao.ENTRADA) {
                 totalEntradas = totalEntradas.add(movimentacao.getQuantidade());
             } else if (movimentacao.getTipo() == TipoMovimentacao.SAÍDA) {
@@ -73,17 +64,6 @@ public class Produto {
         }
         return saldoInicial.add(totalEntradas).subtract(totalSaidas);
     }
-
-
-   /* public void addMovimentacao(Movimentacao movimentacao) {
-        for(Movimentacao m: movimentacoes) {
-            if(m.getTipo() == TipoMovimentacao.SALDO_INICIAL) {
-                throw new BusinessException("Já existe uma movimentação do tipo SALDO_INICIAL");
-            }
-            movimentacoes.add(movimentacao);
-        }
-    }
-    */
 
 
 }

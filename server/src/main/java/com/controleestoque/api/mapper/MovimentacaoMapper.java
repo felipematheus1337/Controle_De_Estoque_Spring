@@ -28,4 +28,11 @@ public class MovimentacaoMapper {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<Movimentacao> toListOfEntity(List<MovimentacaoDTO> movimentacaoList) {
+        return movimentacaoList
+                .stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
+    }
 }

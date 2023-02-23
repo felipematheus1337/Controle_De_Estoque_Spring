@@ -1,40 +1,54 @@
-package com.controleestoque.api.dto;
+    package com.controleestoque.api.dto;
 
-import com.controleestoque.domain.entity.Produto;
-import com.controleestoque.domain.entity.enums.TipoMovimentacao;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+    import com.controleestoque.domain.entity.Movimentacao;
+    import com.controleestoque.domain.entity.Produto;
+    import com.controleestoque.domain.entity.enums.TipoMovimentacao;
+    import com.controleestoque.exception.BusinessException;
+    import jakarta.persistence.*;
+    import lombok.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+    import java.math.BigDecimal;
+    import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class MovimentacaoDTO {
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @ToString
+    public class MovimentacaoDTO {
 
-    private Long id;
-
-
-    private BigDecimal quantidade;
+        private Long id;
 
 
-    private BigDecimal saldo;
+        private BigDecimal quantidade;
 
 
-    private LocalDateTime data;
+        private BigDecimal saldo;
 
 
-    private TipoMovimentacao tipo;
+        private LocalDateTime data;
 
-    private String motivo;
+        @Enumerated(EnumType.STRING)
+        private TipoMovimentacao tipo;
 
-    private String documento;
+        private String motivo;
+
+        private String documento;
+
+        private ProdutoDTO produto;
+
+        public MovimentacaoDTO(TipoMovimentacao tipo, BigDecimal quantidade, ProdutoDTO produto) {
+            this.tipo = tipo;
+            this.quantidade = quantidade;
+            this.produto = produto;
+        }
+
+        public MovimentacaoDTO(TipoMovimentacao tipo, BigDecimal quantidade) {
+            this.tipo = tipo;
+            this.quantidade = quantidade;
+        }
 
 
-    private ProdutoDTO produto;
-}
+
+
+    }

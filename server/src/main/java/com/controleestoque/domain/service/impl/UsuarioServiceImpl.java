@@ -2,6 +2,7 @@ package com.controleestoque.domain.service.impl;
 
 import com.controleestoque.api.dto.UsuarioDTO;
 import com.controleestoque.api.mapper.UsuarioMapper;
+import com.controleestoque.domain.entity.Usuario;
 import com.controleestoque.domain.repository.UsuarioRepository;
 import com.controleestoque.domain.service.UsuarioService;
 import com.controleestoque.exception.BusinessException;
@@ -19,9 +20,8 @@ public class UsuarioServiceImpl  implements UsuarioService {
 
 
     @Override
-    public UsuarioDTO create(UsuarioDTO usuarioDTO) {
-        var user = mapper.toEntity(usuarioDTO);
-        return mapper.toDTO(repository.save(user));
+    public UsuarioDTO create(Usuario usuario) {
+        return mapper.toDTO(repository.save(usuario));
 
     }
 
@@ -41,14 +41,14 @@ public class UsuarioServiceImpl  implements UsuarioService {
     }
 
     @Override
-    public UsuarioDTO edit(Long id,UsuarioDTO dto) {
+    public UsuarioDTO edit(Long id,Usuario usuario) {
         var userExists = repository.findById(id);
 
         if(userExists.isEmpty()) {
             throw new BusinessException("User don't exist with that ID!");
         }
-        dto.setId(id);
-        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
+        usuario.setId(id);
+        return mapper.toDTO(repository.save(usuario));
     }
 
     @Override
