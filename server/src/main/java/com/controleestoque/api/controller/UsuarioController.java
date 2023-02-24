@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 @RequestMapping("/usuario")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UsuarioController {
 
     private final UsuarioServiceImpl service;

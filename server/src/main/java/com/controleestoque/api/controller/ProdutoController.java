@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 @RequestMapping("/produto")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ProdutoController {
 
     private final ProdutoServiceImpl service;

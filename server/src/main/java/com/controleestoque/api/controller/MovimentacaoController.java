@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 @RequestMapping("/movimentacao")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class MovimentacaoController {
 
     private final MovimentacaoServiceImpl service;

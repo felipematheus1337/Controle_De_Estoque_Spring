@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/business")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class BusinessServiceLogicController {
 
     private final BusinessServiceLogicImpl service;
