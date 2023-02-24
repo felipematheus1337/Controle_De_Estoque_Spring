@@ -1,7 +1,65 @@
 import styled from "styled-components";
 
+export const Header = styled.div`
+margin: 3px auto;
+text-align: center;
+
+`;
+
 export const Container = styled.div`
 display: flex;
 flex-direction: row;
-margin: 5px auto;
+margin: 40px auto;
+justify-content: center;
+align-items: center;
+
+h1 {
+    text-align: center;
+    display: block;    
+}
+
+
+`;
+
+export const Produto = styled.div`
+display: flex;
+flex-direction: column;
+background: rgba(15,12,23,0.8);
+margin: 40px auto;
+width: 300px;
+justify-content: center;
+align-items: center;
+border-radius: 10px;
+
+h3 {
+    text-align: center;
+    color: white;
+    background-color: black;
+    color: white;
+    font-size: 1.2rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    padding: 2px;
+}
+
+h4 {
+    text-align: center;
+    color: white;
+    background-color: black;
+    color: white;
+    font-size: 1.1rem;
+}
+
+button {
+    margin: 15px auto;
+    padding: 6px;
+    font-size: 1.1rem;
+}
+button:hover {
+    cursor: pointer;
+}
+
 `;

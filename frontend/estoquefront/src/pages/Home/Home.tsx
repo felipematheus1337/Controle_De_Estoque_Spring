@@ -33,6 +33,8 @@ export const Home = () => {
 
 
     return(
+      <C.DivMenu>
+      <h1>Menu</h1>
         <C.Container>
             <C.WrappDiv>
             <h2 onClick={() => {{handleProdClick()}
@@ -56,5 +58,6 @@ export const Home = () => {
           
            
         </C.Container>
+        </C.DivMenu>
     )
 }

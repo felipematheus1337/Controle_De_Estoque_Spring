@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const DivMenu = styled.div`
+margin: 20px auto;
+h1 {
+    color: black;
+    text-align: center;
+}
+
+`;
+
 export const Container = styled.div`
 margin: 70px auto;
 width: 500px;
