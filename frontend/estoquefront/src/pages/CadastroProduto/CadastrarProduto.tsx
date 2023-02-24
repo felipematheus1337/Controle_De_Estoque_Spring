@@ -14,7 +14,6 @@ export const CadastrarProduto = () => {
   const [saldoInicial, setSaldoInicial] = useState(0);
   const [failedQuant,setFailedQuant] = useState<boolean>();
   const [failedHttp,setFailedHttp] = useState<boolean>();
-  const [data,setData] = useState<AxiosResponse<any, any>>();
   const typeOp = "Cadastrar"
 
   const handleCadastrar = async (e:React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +36,6 @@ export const CadastrarProduto = () => {
 
     if(response.status === 201) {
       setFailedHttp(false);
-      setData(response);
       setTimeout(() => {
         setFailedHttp(true);
        },4000)

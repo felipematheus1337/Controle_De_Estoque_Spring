@@ -3,7 +3,7 @@ import * as C from "./index";
 import { useParams } from "react-router-dom";
 import { RegisterOrEditForm } from "../../components/RegisterOrEditForm/RegisterOrEditForm";
 import { ProdutoEditavel } from "../../@types/ProdutoEditavel";
-
+import apiService from "../../api/apiService";
 
 
 export const EditarProduto = () => {
@@ -13,20 +13,32 @@ export const EditarProduto = () => {
     const [codigoBarras, setCodigoBarras] = useState<string>('');
     const [nome,setNome] = useState<string>('');
     const [quantidadeMinima, setQuantidadeMinima] = useState<number>(0);
+    const [failedHttp,setFailedHttp] = useState<boolean>();
     const typeOp = "Editar";
 
 
     
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       
-      let produtoToSave = {
+      let produtoToEdit = {
         nome,
         codigoBarras,
         quantidadeMinima,
       } as ProdutoEditavel;
+
+      let path = `produto/gerente/editar/${id}`;
       
-      console.log(produtoToSave);
+      let response = await apiService("PUT",produtoToEdit,path)
+
+      if(response.status === 200) {
+        setFailedHttp(false);
+        setTimeout(() => {
+          setFailedHttp(true);
+         },4000)
+      } else {
+        setFailedHttp(true);
+      }
       
     }
 
@@ -45,7 +57,9 @@ export const EditarProduto = () => {
                 setQuantidadeMinima={setQuantidadeMinima}
                 typeOp={typeOp}         
                />
+              {failedHttp === false ? <h4>Sucesso ao atualizar Produto!</h4> : null}
             </C.ProdutoEditavel>
+         
         </C.Container>
     )
 }

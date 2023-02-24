@@ -37,4 +37,11 @@ button {
     margin: 10px;
     font-size: 1.1rem;
 }
+
+h4 {
+    background-color: white;
+    color: green;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
 `;
