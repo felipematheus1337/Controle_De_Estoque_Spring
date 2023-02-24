@@ -26,10 +26,10 @@ public interface MovimentacaoRepository extends JpaRepository<Movimentacao, Long
     @Query("SELECT m FROM Movimentacao m JOIN m.produto p ORDER BY p.nome ASC")
     List<Movimentacao> filtrarPorProduto();
 
-    @Query("SELECT m from Movimentacao ORDER BY m.data DESC")
+    @Query("SELECT m from Movimentacao m ORDER BY m.data DESC")
     List<Movimentacao> filtrarPorDataMaior();
 
-    @Query("SELECT m from Movimentacao ORDER BY m.data ASC")
+    @Query("SELECT m FROM Movimentacao m ORDER BY m.data ASC")
     List<Movimentacao> filtrarPorDataMenor();
 
 

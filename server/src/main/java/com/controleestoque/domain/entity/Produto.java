@@ -47,7 +47,6 @@ public class Produto {
     }
 
     public void setSaldoInicial(BigDecimal saldoInicial) {
-        System.out.println(saldoInicial);
         if (this.getSaldoInicial() != null) {
             throw new BusinessException("Não é possível alterar o saldo inicial!");
         } else if (saldoInicial.compareTo(new BigDecimal(getQuantidadeMinima())) < 0) {
