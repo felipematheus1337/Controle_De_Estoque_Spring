@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "codigoBarras": "7891234567890",
+        "nome": "Produto de Teste",
+        "quantidadeMinima": 30,
+        "preco": 29.99,
+        "saldoInicial": 50.00,
+        "dataCriacao": "2023-02-24T11:57:44.444308"
+    },
+    {
+        "id": 2,
+        "codigoBarras": "6838631311265",
+        "nome": "Produto de Teste 2",
+        "quantidadeMinima": 40,
+        "preco": 29.99,
+        "saldoInicial": 60.00,
+        "dataCriacao": "2023-02-24T11:58:38.708754"
+    }
+]

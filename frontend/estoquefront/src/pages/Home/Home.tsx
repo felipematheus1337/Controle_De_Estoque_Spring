@@ -39,7 +39,7 @@ export const Home = () => {
             }}>Produtos {handleDropDownProdutoArrow()}</h2>
            {dropProd && 
            <div className="divs-list"><h3><Link to="/cadastrarProduto">Tela para cadastrar produto!</Link></h3>
-           <h3><Link to="/editarProduto">Tela para editar produto!</Link>
+           <h3><Link to="/produtosParaEditar">Tela para editar produto!</Link>
            </h3>
            </div>}
             </C.WrappDiv>
