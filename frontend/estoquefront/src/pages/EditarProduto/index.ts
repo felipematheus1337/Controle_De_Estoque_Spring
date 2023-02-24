@@ -9,7 +9,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export const ProdutoEditavel = styled.div`
+export const ProdutoEditavel = styled.form`
 display: flex;
 flex-direction: column;
 background: rgba(29,26,49,0.5);

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.form`
 margin: 70px auto;
 display: flex;
 flex-direction: column;
@@ -31,6 +31,18 @@ button {
     padding: 10px;
     border-radius: 5px;
     font-size: 1.1rem;
+}
+
+h3 {
+    color: red;
+    background-color: black;
+}
+
+h4 {
+    color: green;
+    font-weight: bold;
+    background-color: white;
+    font-size: 1.2rem;
 }
 
 `;

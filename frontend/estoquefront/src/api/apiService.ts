@@ -1,20 +1,15 @@
 import axios from "axios"
 
-type apiType = {
-    path: string;
-    body?: Object | Object[];
-    method: string;
-}
 
 
-const apiService = async (data:apiType) => {
+const apiService = async (method:string,body?: Object | Object[], path?: string) => {
 
-    const URL = `http://localhost:8081/server/${data.path}`
+    const URL = `http://localhost:8081/server/${path}`
 
     let response = await axios({
-        method:data.method,
+        method,
         url: URL,
-        data:data.body
+        data:body
     });
 
     return response;
