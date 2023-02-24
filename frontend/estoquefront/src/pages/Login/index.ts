@@ -9,7 +9,7 @@ margin: 40px auto;
 justify-content: center;
 align-items: center;
 background: rgba(29,26,49,0.5);
-border-radius: 10px;
+border-radius: 20px;
 color: white;
 padding: 30px;
 
@@ -31,12 +31,12 @@ label {
 }
 
 button {
-    padding: 10px;
-    margin: 10px;
-    width: auto;
-    height: auto;
+    margin: 15px auto;
+    padding: 6px;
     font-size: 1.1rem;
+    background: rgba(29,26,49);
     border-radius: 5px;
+    color: white;
 }
 
 `;

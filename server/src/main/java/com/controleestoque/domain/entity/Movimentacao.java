@@ -37,7 +37,7 @@
         private BigDecimal saldo;
 
 
-        private LocalDateTime data;
+        private LocalDateTime data = LocalDateTime.now();
 
         @Enumerated(EnumType.STRING)
         private TipoMovimentacao tipo;

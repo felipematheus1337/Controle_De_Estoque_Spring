@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const DivMenu = styled.div`
-margin: 20px auto;
+margin: 15px auto;
 h1 {
+    margin: 10px;
     color: black;
     text-align: center;
 }
+
 
 `;
 
@@ -19,6 +21,7 @@ height: 300px;
 border-radius: 20px;
 color: white;
 justify-content: space-around;
+
 
 
 

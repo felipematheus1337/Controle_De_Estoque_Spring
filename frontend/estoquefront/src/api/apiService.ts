@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 
-const apiService = async (method:string,body?: Object | Object[], path?: string) => {
+const apiService = async (method:string,body?: Object | Object[] | null, path?: string) => {
 
     const URL = `http://localhost:8081/server/${path}`
 

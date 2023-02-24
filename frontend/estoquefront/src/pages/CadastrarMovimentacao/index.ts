@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.form`
-margin: 70px auto;
+margin: 50px auto;
 display: flex;
 flex-direction: column;
 width: 600px;
@@ -47,5 +47,9 @@ h4 {
     background-color: white;
     font-size: 1.2rem;
 }
-
+select {
+    margin: 10px;
+    padding: 6px;
+    border-radius: 5px;
+}
 `;
