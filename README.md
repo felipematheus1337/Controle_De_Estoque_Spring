@@ -7,7 +7,6 @@ Um sistema de controle de estoque, utilizando Java com Spring para o Backend, e 
   <img  alt="lipe--CSS" height="55" width="55" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/spring/spring-original.svg">
   <img alt ="lipe-CSS" height="55" width="55" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg">
   <img alt ="lipe-CSS" height="55" width="55" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg">
-height="55"/>
 </div> 
 
 
@@ -21,7 +20,16 @@ height="55"/>
 <p>Autenticação com JWT</p>
 <p>Gerenciamento de rotas por Role's</p>
 <p>Tratamento personalizado de Exceção</p>
-<p>Documentação com Swagger</p>
+
+## Regras de negócio
+<h3>Filtros:</h3>
+<h4>Produto: Permitir filtrar os lançamentos por produto.</h4>
+<h4>Período: Permitir filtrar os lançamentos de um determinado período.</h4>
+<h4>Tipo de Movimento: Permitir filtrar os lançamentos de um determinado Tipo de Movimento.</h4>
+
+<h3>Ordenações:</h3>
+<h4>Produto</h4>
+<h4>Data</h4>
 
 <hr/>
 
