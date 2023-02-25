@@ -37,7 +37,7 @@ Um sistema de controle de estoque, utilizando Java com Spring para o Backend, e 
 <p>Detalhe para regra de negócio: Usuário logado como Operador, não tem acesso a parte de Produtos!</p>
 
 # Telas dos Produtos
-<img src="https://raw.githubusercontent.com/felipematheus1337/Controle_De_Estoque_Spring/e39810f806236ef6842e92e5922ebd8569cef8f5/docs/TELA_PRODUTO.jpeg?token=ATCN3NTJO6O2PB3LYC2UKFTD7IK6M" />
+<img src="https://github.com/felipematheus1337/Controle_De_Estoque_Spring/blob/dev/docs/TELA_PRODUTO.jpeg?raw=true" />
 <p>Somente usuário logado como gerente, tem acesso a essa funcionalidade!</p>
 
 # Telas das Movimentações
