@@ -5,6 +5,7 @@ import {verifyQuantSaldo} from "../../hooks/verifyQuantSaldo";
 import apiService from "../../api/apiService";
 import { ProdutoCriavel } from "../../@types/ProdutoCriavel";
 import { AxiosResponse } from "axios";
+import { useAuthData } from "../../hooks/useAuthData";
 
 export const CadastrarProduto = () => {
 
@@ -15,6 +16,7 @@ export const CadastrarProduto = () => {
   const [failedQuant,setFailedQuant] = useState<boolean>();
   const [failedHttp,setFailedHttp] = useState<boolean>();
   const typeOp = "Cadastrar"
+  const {token} = useAuthData();
 
   const handleCadastrar = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +24,8 @@ export const CadastrarProduto = () => {
     if(!checkQuantSaldo()) {
       return;
     }
+
+
 
     let produtoToSave = {
       nome,
@@ -32,7 +36,7 @@ export const CadastrarProduto = () => {
 
     let path = "produto/gerente/cadastrar"
 
-    let response = await apiService("POST",produtoToSave,path)
+    let response = await apiService("POST",produtoToSave,path,token!)
 
     if(response.status === 201) {
       setFailedHttp(false);

@@ -24,7 +24,7 @@ h1 {
 export const Produto = styled.div`
 display: flex;
 flex-direction: column;
-background: rgba(29,26,49,0.5);
+background: rgba(120,120,120,0.6);
 margin: 40px auto;
 width: 300px;
 justify-content: center;

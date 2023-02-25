@@ -1,11 +1,15 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext";
+import { useAuthData } from "../../hooks/useAuthData";
 import * as C from './index';
 
 
 export const Home = () => {
     const [dropProd,setDropProd] = useState<boolean>();
     const [dropMov,setDropMov] = useState<boolean>();
+    const {token,role} = useAuthData();
+    console.log(token,role);
 
     const handleDropDownProdutoArrow = () => {
        
@@ -22,12 +26,12 @@ export const Home = () => {
 
       const handleProdClick = () => {
         setDropProd(!dropProd);
-        setDropMov(false); // aqui definimos o outro estado como falso
+        setDropMov(false); 
       }
   
       const handleMovClick = () => {
         setDropMov(!dropMov);
-        setDropProd(false); // aqui definimos o outro estado como falso
+        setDropProd(false); 
       }
 
 
@@ -36,7 +40,7 @@ export const Home = () => {
       <C.DivMenu>
       <h1>Menu</h1>
         <C.Container>
-            <C.WrappDiv>
+           {role === "GERENTE" ?  <C.WrappDivProduto>
             <h2 onClick={() => {{handleProdClick()}
             }}>Produtos {handleDropDownProdutoArrow()}</h2>
            {dropProd && 
@@ -44,7 +48,8 @@ export const Home = () => {
            <h3><Link to="/produtosParaEditar">Tela para editar produto!</Link>
            </h3>
            </div>}
-            </C.WrappDiv>
+            </C.WrappDivProduto> : null}
+           
 
             <C.WrappDiv>
             <h2 onClick={() =>{handleMovClick()

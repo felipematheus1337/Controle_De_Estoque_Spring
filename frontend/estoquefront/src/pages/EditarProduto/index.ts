@@ -12,7 +12,7 @@ align-items: center;
 export const ProdutoEditavel = styled.form`
 display: flex;
 flex-direction: column;
-background: rgba(29,26,49,0.5);
+background: rgba(120,120,120,0.6);
 border-radius: 20px;
 margin: 25px auto;
 text-align: center;

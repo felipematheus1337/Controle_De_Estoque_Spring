@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { MovimentacaoType } from "../../@types/MovimentacaoType";
 import { ProdutosParaEditarType } from "../../@types/ProdutosParaEditarType";
 import apiServiceWithParams from "../../api/apiServiceWithParams";
+import { useAuthData } from "../../hooks/useAuthData";
 import * as C from "./index";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const FiltrarPorPeriodo: React.FC<Props> = ({ onClose, setData }) => {
+  const {token} = useAuthData();
 
    const [inicioPeriodo,setInicioPeriodo] = useState<string>();
    const [fimPeriodo,setFimPeriodo] = useState<string>();
@@ -29,7 +31,7 @@ export const FiltrarPorPeriodo: React.FC<Props> = ({ onClose, setData }) => {
         fimPeriodo
       };
 
-      let response = await apiServiceWithParams("GET",params,path);
+      let response = await apiServiceWithParams("GET",params,path,token!);
       setData(response.data);
     }
 

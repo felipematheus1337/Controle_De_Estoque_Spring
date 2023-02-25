@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { MovimentacaoType } from "../../@types/MovimentacaoType";
 import { ProdutosParaEditarType } from "../../@types/ProdutosParaEditarType";
 import apiService from "../../api/apiService";
+import { useAuthData } from "../../hooks/useAuthData";
 import * as C from "./index";
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const FiltrarPorLancamentoModal: React.FC<Props> = ({ onClose, setData }) => {
+  const {token} = useAuthData();
 
     const [id,setId] = useState<number>();
 
@@ -21,7 +23,7 @@ export const FiltrarPorLancamentoModal: React.FC<Props> = ({ onClose, setData })
 
     const handleProdutoPorId = async () => {
       let path = `business/lancamento/${id}`;
-      let response = await apiService("GET",null,path);
+      let response = await apiService("GET",null,path,token!);
       setData(response.data);
     }
 

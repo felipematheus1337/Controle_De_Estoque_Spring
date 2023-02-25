@@ -9,7 +9,7 @@ height: auto;
 align-items: center;
 justify-content: center;
 padding: 25px;
-background: rgba(29,26,49,0.5);
+background: rgba(120,120,120,0.6);
 border-radius: 20px;
 color: white;
 

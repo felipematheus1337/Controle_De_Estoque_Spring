@@ -53,10 +53,8 @@ border-radius: 20px;
 
 h3 {
     text-align: center;
-    color: white;
-    background-color: black;
-    color: white;
     font-size: 1.2rem;
+    color: white;
 }
 
 a {
@@ -67,9 +65,6 @@ a {
 
 h4 {
     text-align: center;
-    color: white;
-    background-color: black;
-    color: white;
     font-size: 1.1rem;
 }
 

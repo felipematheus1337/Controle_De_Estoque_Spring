@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { TipoMovimento } from "../../@types/MovimentacaoCriar";
 import { MovimentacaoType } from "../../@types/MovimentacaoType";
 import apiServiceWithParams from "../../api/apiServiceWithParams";
+import { useAuthData } from "../../hooks/useAuthData";
 import * as C from "./index";
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export const FiltrarPorTipoModal: React.FC<Props> = ({ onClose, setData }) => {
-
+  const {token} = useAuthData();
    const [selectedValue, setSelectedValue] = useState('');
 
     const stopPropagation = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -28,7 +29,7 @@ export const FiltrarPorTipoModal: React.FC<Props> = ({ onClose, setData }) => {
       };
       console.log(params);
 
-      let response = await apiServiceWithParams("GET",params,path);
+      let response = await apiServiceWithParams("GET",params,path,token!);
       setData(response.data);
     }
 

@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react"
 import apiService from "../../api/apiService";
 import * as C from "./index";
 import buttonSearch from '../../assets/buttonSearch.png';
-import { ProdutosParaEditarType } from "../../@types/ProdutosParaEditarType";
 import { FiltrarPorLancamentoModal } from "../../components/FiltrarPorLançamentoModal/FiltarPorLançamentoModal";
 import { MovimentacaoType } from "../../@types/MovimentacaoType";
-import { AxiosResponse } from "axios";
 import { ProdutoToRender } from "../../components/ProdutoToRender/ProdutoToRender";
 import { FiltrarPorPeriodo } from "../../components/FiltrarPorPeriodoModal/FiltarPorPeriodoModal";
 import { FiltrarPorTipoModal } from "../../components/FiltrarPorTipoModal/FiltrarPorTipoModal";
+import { useAuthData } from "../../hooks/useAuthData";
 
 
 export const ListarMovimentacao = () => {
@@ -18,6 +17,7 @@ export const ListarMovimentacao = () => {
     const [isModalOpen,setIsModalOpen] = useState<boolean>(false);
     const [isPeriodoModalOpen,setIsPeriodoModalOpen] = useState<boolean>(false);
     const [isTipoModalOpen,setIsTipoModalOpen] = useState<boolean>(false);
+    const {token} = useAuthData();
 
 
     const handleOpenModal = () => {
@@ -49,7 +49,7 @@ export const ListarMovimentacao = () => {
 
     useEffect(() => {
         const getAllMovimentacoes = async () => {
-            const response = await apiService("GET",null,"movimentacao");
+            const response = await apiService("GET",null,"movimentacao",token!);
             setData(response.data);
         }
 
@@ -60,7 +60,7 @@ export const ListarMovimentacao = () => {
 
     const handleOrdemAlfabetica = async () => {
          let path = "business/produto";
-         const response = await apiService("GET",null,path);
+         const response = await apiService("GET",null,path,token!);
          setData(response.data);
     }
 
@@ -70,13 +70,13 @@ export const ListarMovimentacao = () => {
 
     const handleDataMaior = async () => {
         let path = "business/datamaior";
-        const response = await apiService("GET",null,path);
+        const response = await apiService("GET",null,path,token!);
         setData(response.data);
    }
 
    const handleDataMenor = async () => {
     let path = "business/datamenor";
-    const response = await apiService("GET",null,path);
+    const response = await apiService("GET",null,path,token!);
     setData(response.data);
 }
     
@@ -125,13 +125,13 @@ export const ListarMovimentacao = () => {
             <>
             {data.map(valor => (
                 <C.Movimentacao key={valor.id}>
-                  <h3>Data do movimento : {moment(valor.data).format("DD/MM/YYYY")}</h3>
+                  <h3>Data do movimento : {valor.data}</h3>
                   <ProdutoToRender produto={valor.produto}/>
                   <h3>Tipo: {valor.tipo}</h3>
                   {valor.documento == null ? <h3></h3> : <h3>Documento: {valor.documento}</h3>}
                   <h3>Motivo: {valor.motivo}</h3>
                   <h3>Saldo: {valor.saldo}</h3>
-                  {valor.saldo < valor.quantidade ? <h3>Inferior ao Mínimo do contrário</h3> : <h3>Ok</h3>}
+                  {valor.saldo < valor.quantidade ? <h3>Situação: Inferior ao Mínimo do contrário</h3> : <h3>Situação: Ok</h3>}
                   </C.Movimentacao>
             ))}
             </>

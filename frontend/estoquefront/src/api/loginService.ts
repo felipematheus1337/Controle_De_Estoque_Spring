@@ -2,10 +2,27 @@
 
 import { UserLogin } from "../@types/UserLogin";
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
-export const loginService = async (data:UserLogin, onSucess: () => void) => {
-   const BASE_URL = `http://localhost:8081/server/ping`;
-   let result = await axios.get(BASE_URL)
+export const loginService = async (data: UserLogin, login: (token: string, role:string) => void): Promise<boolean> => {
 
-    onSucess();
-}
+    const BASE_URL = `http://localhost:8081/server/login/register`;
+    
+      let response = await axios.post(BASE_URL, data);
+
+      if(response.status === 200 || response.status === 201) {
+
+        const token = response.data.token;
+        const role  = response.data.role;
+        
+        login(token,role);
+
+        return true;
+
+      } else {
+
+        return false;
+      }
+
+
+  };

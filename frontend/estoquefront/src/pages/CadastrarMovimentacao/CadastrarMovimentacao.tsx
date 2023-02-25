@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useState } from "react"
 import { MovimentacaoCriar, TipoMovimento } from "../../@types/MovimentacaoCriar";
 import apiService from "../../api/apiService";
+import { useAuthData } from "../../hooks/useAuthData";
 import * as C from "./index";
 
 export const CadastrarMovimentacao = () => {
@@ -13,6 +14,7 @@ export const CadastrarMovimentacao = () => {
     const [motivo, setMotivo] = useState<string>();
     const [documento,setDocumento] = useState<string | null>(null);
     const [failedHttp,setFailedHttp] = useState<boolean>();
+    const {token} = useAuthData();
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
        setSelectedValue(event.target.value);
@@ -39,10 +41,11 @@ export const CadastrarMovimentacao = () => {
         documento,
         tipo: TipoMovimento[Number(selectedValue)]
       };
+      console.log(movimentacaoToSave)
 
       let path = "movimentacao"
       
-      let response = await apiService("POST",movimentacaoToSave,path)
+      let response = await apiService("POST",movimentacaoToSave,path,token!)
 
       if(response.status === 201) {
         setFailedHttp(false);
@@ -57,7 +60,7 @@ export const CadastrarMovimentacao = () => {
     }
 
     const handleData = (dataToFormat:string):string => {
-        return moment(dataToFormat).format("YYYY-MM-DDTHH:mm:ss.SSS");
+        return moment(dataToFormat).format("DD/MM/yyyy HH:mm:ss");
     }
 
     
