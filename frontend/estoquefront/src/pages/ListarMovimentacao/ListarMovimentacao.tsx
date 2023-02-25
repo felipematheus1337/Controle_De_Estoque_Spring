@@ -7,18 +7,43 @@ import { ProdutosParaEditarType } from "../../@types/ProdutosParaEditarType";
 import { FiltrarPorLancamentoModal } from "../../components/FiltrarPorLançamentoModal/FiltarPorLançamentoModal";
 import { MovimentacaoType } from "../../@types/MovimentacaoType";
 import { AxiosResponse } from "axios";
+import { ProdutoToRender } from "../../components/ProdutoToRender/ProdutoToRender";
+import { FiltrarPorPeriodo } from "../../components/FiltrarPorPeriodoModal/FiltarPorPeriodoModal";
+import { FiltrarPorTipoModal } from "../../components/FiltrarPorTipoModal/FiltrarPorTipoModal";
 
 
 export const ListarMovimentacao = () => {
+
     const [data,setData] = useState<MovimentacaoType[]>([]);
     const [isModalOpen,setIsModalOpen] = useState<boolean>(false);
+    const [isPeriodoModalOpen,setIsPeriodoModalOpen] = useState<boolean>(false);
+    const [isTipoModalOpen,setIsTipoModalOpen] = useState<boolean>(false);
+
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
       };
+
+      const handleOpenPeriodoModal = () => {
+        setIsPeriodoModalOpen(true);
+      };
+
+      const handleOpenTipoModal = () => {
+        setIsTipoModalOpen(true);
+      };
+
     
       const handleCloseModal = () => {
         setIsModalOpen(false);
       };
+
+      const handleClosePeriodoModal = () => {
+        setIsPeriodoModalOpen(false);
+      }
+
+      const handleCloseTipoMovimento = () => {
+        setIsTipoModalOpen(false);
+      }
 
 
 
@@ -31,8 +56,31 @@ export const ListarMovimentacao = () => {
         getAllMovimentacoes()
      
     },[])
+
+
+    const handleOrdemAlfabetica = async () => {
+         let path = "business/produto";
+         const response = await apiService("GET",null,path);
+         setData(response.data);
+    }
+
+    useEffect(() => {
+      
+    },[data])
+
+    const handleDataMaior = async () => {
+        let path = "business/datamaior";
+        const response = await apiService("GET",null,path);
+        setData(response.data);
+   }
+
+   const handleDataMenor = async () => {
+    let path = "business/datamenor";
+    const response = await apiService("GET",null,path);
+    setData(response.data);
+}
     
-    console.log(data);
+
 
 
    return (
@@ -42,15 +90,15 @@ export const ListarMovimentacao = () => {
 
         <C.Option>
             <label>Filtrar por ordem alfabética</label>
-            <img src={buttonSearch} alt="button to search!"/>
+            <img src={buttonSearch} alt="button to search!" onClick={handleOrdemAlfabetica}/>
         </C.Option>
         <C.Option>
             <label>Filtrar por maior data</label>
-            <img src={buttonSearch} alt="button to search!"/>
+            <img src={buttonSearch} alt="button to search!" onClick={handleDataMaior}/>
         </C.Option>
         <C.Option>
             <label>Filtrar por menor data</label>
-            <img src={buttonSearch} alt="button to search!"/>
+            <img src={buttonSearch} alt="button to search!" onClick={handleDataMenor}/>
         </C.Option>
 
         <C.Option>
@@ -60,12 +108,12 @@ export const ListarMovimentacao = () => {
 
         <C.Option>
             <label>Filtrar por período</label>
-            <img src={buttonSearch} alt="button to search!"/>
+            <img src={buttonSearch} alt="button to search!" onClick={handleOpenPeriodoModal}/>
         </C.Option>
 
         <C.Option>
             <label>Filtrar por tipo de movimento</label>
-            <img src={buttonSearch} alt="button to search!"/>
+            <img src={buttonSearch} alt="button to search!" onClick={handleOpenTipoModal}/>
         </C.Option>
 
 
@@ -77,12 +125,13 @@ export const ListarMovimentacao = () => {
             <>
             {data.map(valor => (
                 <C.Movimentacao key={valor.id}>
-                  <h3>{valor.nome}</h3>
-                  <h4>Código de  Barras: {valor.codigoBarras}</h4>
-                  <h4>Quantidade mínima: {valor.quantidadeMinima}</h4>
-                  <h4>Saldo Inicial: {valor.saldoInicial}</h4>
-                  <h4>Preço: {valor.preco}</h4>
-                  <h4>Data de criação: {moment(valor.dataCriacao).format("DD/MM/YYYY")}</h4>
+                  <h3>Data do movimento : {moment(valor.data).format("DD/MM/YYYY")}</h3>
+                  <ProdutoToRender produto={valor.produto}/>
+                  <h3>Tipo: {valor.tipo}</h3>
+                  {valor.documento == null ? <h3></h3> : <h3>Documento: {valor.documento}</h3>}
+                  <h3>Motivo: {valor.motivo}</h3>
+                  <h3>Saldo: {valor.saldo}</h3>
+                  {valor.saldo < valor.quantidade ? <h3>Inferior ao Mínimo do contrário</h3> : <h3>Ok</h3>}
                   </C.Movimentacao>
             ))}
             </>
@@ -92,6 +141,8 @@ export const ListarMovimentacao = () => {
       
        </C.ResultMovimentacao>
        {isModalOpen && <FiltrarPorLancamentoModal onClose={handleCloseModal} setData={setData} />}
+       {isPeriodoModalOpen && <FiltrarPorPeriodo onClose={handleClosePeriodoModal} setData={setData} />}
+       {isTipoModalOpen && <FiltrarPorTipoModal onClose={handleCloseTipoMovimento} setData={setData} />}
     </C.Container>
    )
 }

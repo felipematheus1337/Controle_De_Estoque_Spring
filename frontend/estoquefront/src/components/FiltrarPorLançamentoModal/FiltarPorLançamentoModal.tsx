@@ -18,15 +18,22 @@ export const FiltrarPorLancamentoModal: React.FC<Props> = ({ onClose, setData })
         event.stopPropagation();
     };
 
-    
 
+    const handleProdutoPorId = async () => {
+      let path = `business/lancamento/${id}`;
+      let response = await apiService("GET",null,path);
+      setData(response.data);
+    }
+
+
+  
   return (
     <C.ModalOverlay onClick={onClose}>
       <C.ModalContent onClick={stopPropagation}>
         <h3>Filtrar por produto Id</h3>
         <label>ID do Produto</label>
         <input type="number" onChange={(e) => setId(Number(e.target.value))} />
-        <button>Buscar!</button>
+        <button onClick={handleProdutoPorId}>Buscar!</button>
       </C.ModalContent>
     </C.ModalOverlay>
   );

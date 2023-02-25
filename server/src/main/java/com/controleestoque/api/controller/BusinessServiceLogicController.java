@@ -18,7 +18,7 @@ public class BusinessServiceLogicController {
 
     private final BusinessServiceLogicImpl service;
 
-    @GetMapping("/lancamento/{produtoId}")
+    @GetMapping("/lancamento/{produtoId}")  
     public ResponseEntity<List<MovimentacaoDTO>> filtrarPorLancamento(@PathVariable Long produtoId) {
         return ResponseEntity.ok(service.filtrarPorLancamento(produtoId));
     }
