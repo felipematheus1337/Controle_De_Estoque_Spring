@@ -21,7 +21,7 @@ public class UsuarioController {
     private final UsuarioServiceImpl service;
 
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Object> createUser(@RequestBody Usuario usuario) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(usuario));
     }
