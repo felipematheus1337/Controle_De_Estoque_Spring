@@ -5,6 +5,7 @@
     import com.controleestoque.api.dto.ProdutoDTO;
     import com.controleestoque.domain.entity.enums.TipoMovimentacao;
     import com.controleestoque.exception.BusinessException;
+    import com.fasterxml.jackson.annotation.JsonFormat;
     import jakarta.persistence.*;
     import lombok.*;
 
@@ -37,6 +38,7 @@
         private BigDecimal saldo;
 
 
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
         private LocalDateTime data = LocalDateTime.now();
 
         @Enumerated(EnumType.STRING)

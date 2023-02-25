@@ -10,6 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -24,20 +28,26 @@ public class SecurityConfiguration {
 
 
         http
+                .cors()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests(requests -> {
                     try {
                         requests
+
                                 .requestMatchers("/usuario/create","/login/**","/error").permitAll()
+
                         .anyRequest()
                         .authenticated()
                         .and()
                         .sessionManagement()
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and()
+
                         .authenticationProvider(authenticationProvider)
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -46,4 +56,17 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
+    private CorsConfiguration corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+        configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("*", "Origin"));
+        return configuration;
+    }
+
+
+
 }

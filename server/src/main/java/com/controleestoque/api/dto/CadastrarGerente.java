@@ -1,5 +1,6 @@
 package com.controleestoque.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class CadastrarGerente {
     private String nome;
     private Integer quantidadeMinima;
     private BigDecimal saldoInicial;
-
-    private LocalDateTime dataCriacao;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
 }

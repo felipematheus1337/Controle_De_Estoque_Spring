@@ -3,6 +3,7 @@ package com.controleestoque.api.dto;
 import com.controleestoque.domain.entity.Movimentacao;
 import com.controleestoque.domain.entity.enums.TipoMovimentacao;
 import com.controleestoque.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -41,7 +42,7 @@ public class ProdutoDTO {
     private BigDecimal saldoInicial;
 
 
-
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
 

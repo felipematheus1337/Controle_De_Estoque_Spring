@@ -3,6 +3,7 @@ package com.controleestoque.domain.entity;
 import com.controleestoque.api.dto.MovimentacaoDTO;
 import com.controleestoque.domain.entity.enums.TipoMovimentacao;
 import com.controleestoque.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -35,6 +36,7 @@ public class Produto {
 
     private BigDecimal preco;
     private BigDecimal saldoInicial;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dataCriacao = LocalDateTime.now();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "produto")
     private List<Movimentacao> movimentacoes = new ArrayList<>();
